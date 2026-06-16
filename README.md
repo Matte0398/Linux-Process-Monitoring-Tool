@@ -1,4 +1,4 @@
-# Linux-Monitoring-Tool
+# Linux-Process-Monitoring-Tool
 
 Bash script that checks whether one or more processes are running on a Linux system.
 
