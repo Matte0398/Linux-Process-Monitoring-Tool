@@ -143,6 +143,48 @@ The text report distinguishes three outcomes:
 
 In the text summary, the `not found` counter includes all KO checks, including those marked `OUT OF RANGE`.
 
+### Standard Text Output
+
+Omit `-J` to display the standard text report:
+
+```bash
+./process_monitor.sh \
+  -P "proc=cron,crond:alias=cron_service" \
+  -P "proc=redis-server:alias=cache:user=redis:min=2:max=3" \
+  -P "proc=mysqld:alias=database:user=mysql"
+```
+
+Illustrative example with one cron process, one Redis process, and no matching MySQL process. Actual commands and counts depend on the system; terminal colors are omitted here.
+
+```text
+===========================================
+         PROCESS MONITORING REPORT
+===========================================
+
+[OK] cron_service: ACTIVE
+    - Process count: 1
+    - Command: /usr/sbin/cron -f
+    - Process found: cron
+    - Min: 1
+    - Max: 1
+
+[KO] cache: OUT OF RANGE
+    - Process count: 1
+    - Command: /usr/bin/redis-server 127.0.0.1:6379
+    - User: redis
+    - Min: 2
+    - Max: 3
+
+[KO] database: NOT FOUND
+    - Searched for user: mysql
+
+===========================================
+      SUMMARY: 1 active - 2 not found
+===========================================
+```
+
+The cache check fails because it requires at least two instances. The summary counts both this failure and the missing database process under `not found`.
+
 ### JSON Output
 
 ```bash
