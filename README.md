@@ -79,8 +79,6 @@ Only `proc` is required. All other fields can be omitted.
 
 Searches use literal strings, not regular expressions. Simple names are matched using `grep -F -w`; strings containing whitespace, `/`, or `=` are matched as substrings using `grep -F`. Searches are not limited to the executable name and may also match command arguments.
 
-When multiple alternatives are provided, the script uses **the first one that finds processes matching the filters**. Instances matching subsequent alternatives are neither counted nor checked, even if the first alternative is outside the configured range.
-
 The parser uses the separators `:`, `,`, `%`, and `|` and provides no escaping mechanism for them. Avoid these characters in values except where required by the syntax. Enclose the entire `-P` value in quotes to preserve spaces.
 
 ## Examples
@@ -119,7 +117,6 @@ For example, create a `processes.txt` file with the following content:
 # Services to monitor
 proc=nginx:alias=webserver:min=1:max=8
 proc=mysqld:alias=database:user=mysql
-proc=redis-server:alias=cache:user=redis
 proc=cron,crond:alias=cron_service
 proc=syslogd,rsyslogd,syslog-ng:alias=syslog
 ```
@@ -225,5 +222,3 @@ The exit code **does not represent process status**: a report that completes nor
 Help (`-h` or execution without arguments), invalid options, a missing or unreadable file, and the absence of valid checks in text mode result in exit code `1`. In JSON mode, if there are no valid checks, the script returns `[]` with exit code `0`.
 
 Definitions without a `proc` value are ignored, with a warning only in text mode. Option or file errors produce a text message even with `-J`: check the exit code before parsing the output as JSON.
-
-For periodic checks, schedule separate executions using cron or a systemd timer.

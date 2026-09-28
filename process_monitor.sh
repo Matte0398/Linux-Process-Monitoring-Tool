@@ -20,7 +20,7 @@ DESCRIPTION:
     Supports alias and user filtering. It shows also a JSON output
 
 USAGE:
-    $0 [<options>]
+    $0 <options>
 
 OPTIONS:
     -F <file>     Specifies the file containing processes to monitor
@@ -35,7 +35,7 @@ PROCESS FORMAT:
     - proc=    : process name to search for (required)
                  Can be simple name: proc=nginx
                  Can be full command with arguments: proc=sapstart pf=/path/to/profile
-                 Multiple comma-separated names search for alternatives (e.g., proc=cron,crond)
+                 Multiple comma-separated names search for alternatives (e.g. proc=cron,crond)
     - alias=   : alternative label for the process (optional)
     - user=    : filters by this specific user (optional)
     - ppid=    : filters by this specific Parent PID (optional)
